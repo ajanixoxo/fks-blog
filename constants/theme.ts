@@ -5,7 +5,7 @@
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
+const tintColorLight = '#37b69a';
 const tintColorDark = '#fff';
 
 export const Colors = {
@@ -14,23 +14,29 @@ export const Colors = {
     background: '#fff',
     tint: tintColorLight,
     icon: '#687076',
-    tabIconDefault: '#687076',
+    tabIconDefault: '#6f6f6fff',
     tabIconSelected: tintColorLight,
+    buttonBg: '#4b4ced',
+    buttonText: '#fff',
   },
   dark: {
     text: '#ECEDEE',
-    background: '#151718',
+    background: '#242c3b',
     tint: tintColorDark,
     icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    tabIconDefault: '#ffffff8c',
     tabIconSelected: tintColorDark,
+    buttonBg: '#4b4ced',
+    buttonText: '#fff',
+    colorMuted: '#353f54',
+    colorShared: '#222834',
   },
 };
 
 export const Fonts = Platform.select({
   ios: {
     /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
+    poppins: 'system-ui',
     /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
     /** iOS `UIFontDescriptorSystemDesignRounded` */
@@ -39,7 +45,7 @@ export const Fonts = Platform.select({
     mono: 'ui-monospace',
   },
   default: {
-    sans: 'normal',
+    poppins: 'normal',
     serif: 'serif',
     rounded: 'normal',
     mono: 'monospace',
