@@ -5,7 +5,7 @@ import { useThemeColor } from '@/hooks/use-theme-color';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'discountText' | 'productCardTitle' | 'productCardDescription';
 };
 
 export function ThemedText({
@@ -26,6 +26,9 @@ export function ThemedText({
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
+        type === 'discountText' ? styles.discountText : undefined,
+        type === 'productCardTitle' ? styles.productCardTitle : undefined,
+        type === 'productCardDescription' ? styles.productCardDescription : undefined,
         style,
       ]}
       {...rest}
@@ -67,5 +70,11 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     lineHeight: 22,
    
+  },
+  discountText:{
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#ffffff85',
+    padding: 16,
   }
 });
