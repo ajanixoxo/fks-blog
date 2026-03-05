@@ -1,21 +1,20 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
 
+import ElectricBike from "@/assets/images/electric-bike.svg";
+import RectangleBg from "@/assets/images/Rectangle 474.svg";
+import TransformedCard from "@/assets/images/transformed-card.svg";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import ButtonContainer from "@/components/ui/button-container";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 export default function HomeScreen() {
   return (
     <ParallaxScrollView>
       <ThemedView style={styles.mainContainer}>
         <View style={styles.imageContainer}>
-          <Image
-            source={require("@/assets/images/Rectangle 474.svg")}
-            style={styles.image}
-          />
+          <RectangleBg width="100%" height="100%" />
         </View>
         <ThemedView style={styles.content}>
           <ThemedView style={styles.titleContainer}>
@@ -27,21 +26,18 @@ export default function HomeScreen() {
             </ButtonContainer>
           </ThemedView>
 
-          <ThemedView style={styles.bikeContainer}>
-            <LinearGradient
-              colors={["rgba(53, 63, 84, 0.6)", "rgba(34, 40, 52, 0.6)"]}
-              start={{ x: 0.1, y: 0.1 }}
-              end={{ x: 0.9, y: 0.9 }}
-              style={styles.transformContainer}
-            ></LinearGradient>
-            <ThemedView style={styles.bikeImageContainer}>
-              <Image
-                source={require("@/assets/images/electric-bike.png")}
-                style={styles.image}
-              />
-            </ThemedView>
-            <ThemedText type="discountText">30% OFF</ThemedText>
-          </ThemedView>
+          <ImageBackground
+            source={require("@/assets/images/transform.png")}
+            style={styles.container}
+            imageStyle={styles.bgImage}
+          >
+            <ElectricBike
+              width="100%"
+              height="100%"
+              style={styles.bikeImageStyle}
+            />  
+            <ThemedText type="discountText" style={styles.discountText}>30% OFF</ThemedText>
+          </ImageBackground>
         </ThemedView>
       </ThemedView>
     </ParallaxScrollView>
@@ -56,7 +52,6 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "relative",
     zIndex: 3,
-    marginVertical: 20,
   },
   content: {
     position: "relative",
@@ -75,40 +70,34 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     position: "absolute",
-    top: 120,
+    top: 100,
     left: 0,
     right: 20,
     zIndex: 1,
   },
-  image: {
+  container: {
     width: "100%",
-    height: "100%",
+    height: 300,
+    marginTop:-40
   },
-  bikeContainer: {
-    gap: 8,
-    backgroundColor: "transparent",
-    height: "auto",
-  },
-  transformContainer: {
-    position: "absolute",
-    width: 350,
-    height: 280,
 
-    left: 0,
-    top: 0,
+  bgImage: {
+    width: "120%",
+    height: "100%",
     borderRadius: 20,
-    shadowColor: "rgba(16, 20, 28, 0.6)",
-    shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 1,
-    shadowRadius: 60,
-    elevation: 10,
-    zIndex: 0,
-    borderColor: "#ffffff53",
-    borderWidth: 1,
-    backdropFilter: "blur(100px)",
+    marginLeft: -34,
+    
+    
   },
-  bikeImageContainer: {
-    width: "100%",
-    height: 200, // explicit height for the image to be visibl
+  bikeImageContainer: {},
+  bikeImageStyle: {
+    width: "120%",
+    height: "100%",
+    marginTop:-20
+  },
+  discountText: {
+    position: "absolute",
+    bottom: 25,
+    left: 0,
   },
 });
