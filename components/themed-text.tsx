@@ -31,6 +31,7 @@ export function ThemedText({
         type === 'productCardDescription' ? styles.productCardDescription : undefined,
         style,
       ]}
+      
       {...rest}
     />
   );
