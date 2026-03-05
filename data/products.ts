@@ -9,15 +9,15 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "1",
-    name: "Electric Bike",
-    model: "E-Rider Pro",
-    price: 1299,
+    name: "Road Bike",
+    model: "PEUGEOT - LRO1",
+    price: 1299.99,
     image: require("@/assets/images/electric-bike2.png"),
   },
   {
     id: "2",
-    name: "Mountain Bike",
-    model: "Trail X500",
+    name: "Road Helmet",
+    model: "SMITH-Trade",
     price: 899,
     image: require("@/assets/images/helmet.png"),
   },

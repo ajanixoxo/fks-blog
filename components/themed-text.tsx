@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   productCardDescription:{
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: 'normal',
     lineHeight: 22,
    

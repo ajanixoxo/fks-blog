@@ -90,6 +90,17 @@ export default function HomeScreen() {
                       : styles.productCardSecondary
                   }
                 >
+                  <Ionicons
+                    name="heart-outline"
+                    size={18}
+                    color="#ffffff80"
+                    style={{
+                      position: "absolute",
+                      top: 12,
+                      right: 12,
+                      zIndex: 2,
+                    }}
+                  />
                   <View>
                     <Image
                       source={product.image}
@@ -98,11 +109,11 @@ export default function HomeScreen() {
                     />
                   </View>
                   <View>
-                    <ThemedText type="productCardDescription">
-                      {product.model}
+                    <ThemedText type="productCardDescription" className="text-white">
+                      {product.name}
                     </ThemedText>
                     <ThemedText type="productCardTitle">
-                      {product.name}
+                      {product.model}
                     </ThemedText>
                     <ThemedText type="productCardDescription">
                       ${product.price}
