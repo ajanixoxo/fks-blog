@@ -24,6 +24,8 @@ const MAPPING = {
   "cart.fill": "shopping-cart",
   "person.fill": "person",
   "doc.text.fill": "description",
+  bicycle: "pedal-bike",
+  "map.fill": "map",
 } as IconMapping;
 
 /**

@@ -1,6 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { ImageBackground, StyleSheet, View } from "react-native";
-
+import { Pressable } from "react-native";
+import { Link } from "expo-router";
 import Bike from "@/assets/images/bike.svg";
 import ElectricBike from "@/assets/images/electric-bike.svg";
 import Element from "@/assets/images/element.svg";
@@ -73,53 +74,60 @@ export default function HomeScreen() {
                 </ThemedText>
               </ButtonContainer>
             </View>
-            <View className="flex flex-row flex-wrap justify-between  gap-1">
+            <View className="flex flex-row flex-wrap justify-between p-4 gap-1">
               {products.map((product, index) => (
-                <LinearGradient
+                <Link
+                  href={`/${product.id}`}
                   key={product.id}
-                  colors={
-                    index === 0
-                      ? ["#353F54", "#222834"]
-                      : ["rgba(54, 62, 81, 0.6)", "rgba(25, 30, 38, 0.6)"]
-                  }
-                  start={{ x: 0.15, y: 0.1 }}
-                  end={{ x: 0.85, y: 0.9 }}
-                  style={
-                    index === 0
-                      ? styles.productCard
-                      : styles.productCardSecondary
-                  }
+                  asChild
+                  className="cursor-pointer"
                 >
-                  <Ionicons
-                    name="heart-outline"
-                    size={18}
-                    color="#ffffff80"
-                    style={{
-                      position: "absolute",
-                      top: 12,
-                      right: 12,
-                      zIndex: 2,
-                    }}
-                  />
-                  <View>
-                    <Image
-                      source={product.image}
-                      className="w-12 h-1/2"
-                      style={{ width: "90%", height: 90 }}
-                    />
-                  </View>
-                  <View>
-                    <ThemedText type="productCardDescription" className="text-white">
-                      {product.name}
-                    </ThemedText>
-                    <ThemedText type="productCardTitle">
-                      {product.model}
-                    </ThemedText>
-                    <ThemedText type="productCardDescription">
-                      ${product.price}
-                    </ThemedText>
-                  </View>
-                </LinearGradient>
+                  <Pressable style={styles.cardWrapper}>
+                    <LinearGradient
+                      colors={
+                        index === 0
+                          ? ["#353F54", "#222834"]
+                          : ["rgba(54, 62, 81, 0.6)", "rgba(25, 30, 38, 0.6)"]
+                      }
+                      start={{ x: 0.15, y: 0.1 }}
+                      end={{ x: 0.85, y: 0.9 }}
+                      style={styles.gradientFill} // Make gradient fill the pressable
+                    >
+                      <Ionicons
+                        name="heart-outline"
+                        size={18}
+                        color="#ffffff80"
+                        style={{
+                          position: "absolute",
+                          top: 12,
+                          right: 12,
+                          zIndex: 2,
+                        }}
+                      />
+                      <View>
+                        <Image
+                          source={product.image}
+                          className="w-12 h-1/2"
+                          style={{ width: "90%", height: 90 }}
+                        />
+                      </View>
+                      <View>
+                        <ThemedText
+                          type="productCardDescription"
+                          className="text-white"
+                        >
+                          {product.name}
+                        </ThemedText>
+                        <ThemedText type="productCardTitle">
+                          {product.model}
+                        </ThemedText>
+                        <ThemedText type="productCardDescription">
+                          ${product.price}
+                        </ThemedText>
+                      </View>
+                    </LinearGradient>
+                  </Pressable>
+                </Link>
               ))}
             </View>
           </View>
@@ -185,8 +193,19 @@ const styles = StyleSheet.create({
   imageStyle: {
     objectFit: "contain",
   },
+  cardWrapper: {
+    width: "48%", 
+    marginBottom: 12,
+  },
+  // This makes the gradient fill the 48% width container entirely
+  gradientFill: {
+    padding: 12,
+    borderRadius: 20,
+    width: "100%", 
+    minHeight: 180, // Optional: keeps all cards at the same height
+  },
   productCard: {
-    width: "48%",
+    width: "100%",
     padding: 12,
     gap: 16,
     borderRadius: 20,
@@ -198,7 +217,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   productCardSecondary: {
-    width: "48%",
+    width: "100%",
     padding: 12,
     gap: 16,
     borderRadius: 20,
