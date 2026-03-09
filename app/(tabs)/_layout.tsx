@@ -73,6 +73,13 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="[id]/index"
+        options={{
+          href: null,
+          tabBarStyle: { display: "none" },
+        }}
+      />
     </Tabs>
   );
 }
@@ -81,10 +88,9 @@ const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: "#1A1F2B",
     borderTopWidth: 0,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
     height: 80,
     paddingTop: 10,
+    paddingHorizontal: 10,
     position: "absolute",
     left: 0,
     right: 0,

@@ -18,10 +18,12 @@ import { Image } from "expo-image";
 export default function HomeScreen() {
   return (
     <ParallaxScrollView>
-      <ThemedView style={styles.mainContainer}>
+      <ThemedView style={styles.mainContainer}> 
         <View style={styles.imageContainer}>
           <RectangleBg width="100%" height="100%" />
         </View>
+        <View style={{ padding: 20 }}>
+      
         <ThemedView style={styles.content}>
           <ThemedView style={styles.titleContainer}>
             <ThemedText type="title">Choose Your Bike</ThemedText>
@@ -74,7 +76,7 @@ export default function HomeScreen() {
                 </ThemedText>
               </ButtonContainer>
             </View>
-            <View className="flex flex-row flex-wrap justify-between p-4 gap-1">
+            <View className="flex flex-row flex-wrap justify-between gap-1">
               {products.map((product, index) => (
                 <Link
                   href={`/${product.id}`}
@@ -132,6 +134,7 @@ export default function HomeScreen() {
             </View>
           </View>
         </ThemedView>
+        </View>
       </ThemedView>
     </ParallaxScrollView>
   );
