@@ -6,7 +6,8 @@ import { products } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { useLocalSearchParams } from "expo-router";
+import {  useLocalSearchParams } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
@@ -14,6 +15,7 @@ const { width } = Dimensions.get("window");
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
+  const navigation = useNavigation();
   const product = products.find((product) => product.id === id);
   if (!product) {
     return (
@@ -30,7 +32,7 @@ export default function ProductDetailScreen() {
       <ThemedView style={styles.mainContainer}>
         <ThemedView style={styles.content}>
           <ThemedView style={styles.titleContainer}>
-            <ButtonContainer>
+            <ButtonContainer onPress={() => navigation.goBack()}>
               <ThemedText type="defaultSemiBold">
                 <Ionicons name="chevron-back" size={24} color="white" />
               </ThemedText>
