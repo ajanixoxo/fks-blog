@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 const { width } = Dimensions.get("window");
-
+import { useCartStore } from "@/stores/cart-stores";
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
@@ -27,6 +27,8 @@ export default function ProductDetailScreen() {
   const data = [product.image, product.image];
   const tabs = ["Description", "Specifications"];
   const [activeTab, setActiveTab] = useState("Description");
+
+  const addToCart = useCartStore((state) => state.addToCart)
   return (
     <ParallaxScrollView>
       <ThemedView style={styles.mainContainer}>
@@ -103,7 +105,7 @@ export default function ProductDetailScreen() {
                     ${product.price.toLocaleString()}
                   </ThemedText>
                 </View>
-                <ButtonContainer style={styles.addToCartButton}>
+                <ButtonContainer onPress={() => addToCart(product)} style={styles.addToCartButton}>
                   <ThemedText style={styles.addToCartText}>
                     Add to Cart
                   </ThemedText>

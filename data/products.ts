@@ -6,6 +6,7 @@ export interface Product {
   image: any;
   description: string;
   specifications: string;
+
 }
 
 export const products: Product[] = [
@@ -16,7 +17,7 @@ export const products: Product[] = [
     price: 1299.99,
     image: require("@/assets/images/electric-bike2.png"),
     description: "The LR01 uses the same design as the most iconic bikes from PEUGEOT Cycles' 130-year history and combines it with agile, dynamic performance that's perfectly suited to navigating today's cities. As well as a lugged steel frame and iconic PEUGEOT black-and-white chequer design, this city bike also features a 16-speed Shimano Claris drivetrain.",
-    specifications: ""
+    specifications: "",
   },
   {
     id: "2",
