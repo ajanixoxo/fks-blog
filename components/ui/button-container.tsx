@@ -8,9 +8,10 @@ const GRADIENT_COLORS: Record<ButtonVariant, [string, string]> = {
   inactive: ["#353F54", "#222834"],
 };
 
-interface ButtonContainerProps extends PressableProps {
+interface ButtonContainerProps extends Omit<PressableProps, "style"> {
   children: React.ReactNode;
   variant?: ButtonVariant;
+  style?: import("react-native").StyleProp<import("react-native").ViewStyle>;
 }
 
 const ButtonContainer = ({
@@ -20,12 +21,12 @@ const ButtonContainer = ({
   ...props
 }: ButtonContainerProps) => {
   return (
-    <Pressable style={style} {...props}>
+    <Pressable {...props}>
       <LinearGradient
         colors={GRADIENT_COLORS[variant]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={styles.buttonContainer}
+        style={[styles.buttonContainer, style]}
       >
         {children}
       </LinearGradient>

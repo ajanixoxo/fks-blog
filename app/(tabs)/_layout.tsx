@@ -50,6 +50,7 @@ export default function TabLayout() {
         name="cart"
         options={{
           title: "Cart",
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="cart.fill" color={color} />
           ),
