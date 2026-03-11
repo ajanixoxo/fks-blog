@@ -13,6 +13,17 @@ export default function CartScreen() {
   const decrease = useCartStore((state) => state.decreaseQuantity);
   const navigation = useNavigation();
 
+  // Calculate dynamic totals
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+  const deliveryFee = 0;
+  // Apply 30% discount
+  const discountMultiplier = 0.3;
+  const discountAmount = subtotal * discountMultiplier;
+  const total = subtotal + deliveryFee - discountAmount;
+
   return (
     <>
       <ParallaxScrollView>
@@ -27,80 +38,66 @@ export default function CartScreen() {
           </View>
 
           <View>
-            <View className="product-container flex flex-row gap-2 items">
-              <LinearGradient
-                colors={["#363E51", "#4C5770"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.productImageContainer}
+            {cart.map((item) => (
+              <View
+                key={item.id}
+                className="product-container flex flex-row gap-2 items mb-4"
               >
-                <Image
-                  source={require("@/assets/images/electric-bike2.png")}
-                  style={styles.productImage}
-                />
-              </LinearGradient>
-              <View className="product-info flex-col flex gap-8 mt-2">
-                <ThemedText className="product-name" type="productCardTitle">
-                  PUEGIT-UD
-                </ThemedText>
-                <View className="product-quantity flex flex-row items-center gap-32">
-                  <ThemedText
-                    type="productCardDescription"
-                    className="product-price text-[#3C9EEA]"
-                    style={styles.productPrice}
-                  >
-                    $1299.99
+                <LinearGradient
+                  colors={["#363E51", "#4C5770"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.productImageContainer}
+                >
+                  <Image source={item.image} style={styles.productImage} />
+                </LinearGradient>
+                <View className="product-info flex-col flex gap-8 mt-2">
+                  <ThemedText className="product-name" type="productCardTitle">
+                    {item.model}
                   </ThemedText>
-                  <View className="product-quantity-controls flex flex-row items-center justify-between gap-2">
-                    <ButtonContainer
-                      onPress={() => increase("test-id")}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        padding: 0,
-                        paddingHorizontal: 0,
-                      }}
+                  <View className="product-quantity flex flex-row items-center gap-32">
+                    <ThemedText
+                      type="productCardDescription"
+                      className="product-price text-[#3C9EEA]"
+                      style={styles.productPrice}
                     >
+                      ${item.price.toLocaleString()}
+                    </ThemedText>
+                    <View className="product-quantity-controls flex flex-row items-center justify-between gap-2">
+                      <ButtonContainer
+                        onPress={() => increase(item.id)}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          padding: 0,
+                          paddingHorizontal: 0,
+                        }}
+                      >
+                        <ThemedText type="defaultSemiBold">
+                          <Ionicons name="add" size={18} color="white" />
+                        </ThemedText>
+                      </ButtonContainer>
                       <ThemedText type="defaultSemiBold">
-                        <Ionicons name="add" size={18} color="white" />
+                        {item.quantity}
                       </ThemedText>
-                    </ButtonContainer>
-                    <ThemedText type="defaultSemiBold">1</ThemedText>
-                    <ButtonContainer
-                      onPress={() => decrease("test-id")}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        padding: 0,
-                        paddingHorizontal: 0,
-                      }}
-                    >
-                      <ThemedText type="defaultSemiBold">
-                        <Ionicons name="remove" size={18} color="white" />
-                      </ThemedText>
-                    </ButtonContainer>
+                      <ButtonContainer
+                        onPress={() => decrease(item.id)}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          padding: 0,
+                          paddingHorizontal: 0,
+                        }}
+                      >
+                        <ThemedText type="defaultSemiBold">
+                          <Ionicons name="remove" size={18} color="white" />
+                        </ThemedText>
+                      </ButtonContainer>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-            {/* {cart.map((item) => (
-            <View key={item.id}>
-              <Text>{item.name}</Text>
-              <Text>${item.price}</Text>
-
-              <View style={{ flexDirection: "row", gap: 10 }}>
-                <Pressable onPress={() => decrease(item.id)}>
-                  <Text>-</Text>
-                </Pressable>
-
-                <Text>{item.quantity}</Text>
-
-                <Pressable onPress={() => increase(item.id)}>
-                  <Text>+</Text>
-                </Pressable>
-              </View>
-            </View>
-          ))} */}
+            ))}
           </View>
         </View>
       </ParallaxScrollView>
@@ -125,11 +122,17 @@ export default function CartScreen() {
         <View style={styles.summaryContainer}>
           <View style={styles.summaryRow}>
             <ThemedText style={styles.summaryLabel}>Subtotal:</ThemedText>
-            <ThemedText style={styles.summaryValue}>$6119.99</ThemedText>
+            <ThemedText style={styles.summaryValue}>
+              $
+              {subtotal.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </ThemedText>
           </View>
           <View style={styles.summaryRow}>
             <ThemedText style={styles.summaryLabel}>Delivery Fee:</ThemedText>
-            <ThemedText style={styles.summaryValue}>$0</ThemedText>
+            <ThemedText style={styles.summaryValue}>${deliveryFee}</ThemedText>
           </View>
           <View style={styles.summaryRow}>
             <ThemedText style={styles.summaryLabel}>Discount:</ThemedText>
@@ -137,7 +140,13 @@ export default function CartScreen() {
           </View>
           <View style={[styles.summaryRow, { marginTop: 10 }]}>
             <ThemedText style={styles.totalLabel}>Total:</ThemedText>
-            <ThemedText style={styles.totalValue}>$4,283.99</ThemedText>
+            <ThemedText style={styles.totalValue}>
+              $
+              {total.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </ThemedText>
           </View>
         </View>
 
