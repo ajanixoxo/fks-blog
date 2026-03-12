@@ -3,16 +3,18 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import ButtonContainer from "@/components/ui/button-container";
 import { products } from "@/data/products";
+import { useCartStore } from "@/stores/cart-stores";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import {  useLocalSearchParams } from "expo-router";
-import { useNavigation } from "@react-navigation/native";
+import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import Toast from "react-native-toast-message";
 const { width } = Dimensions.get("window");
-import { useCartStore } from "@/stores/cart-stores";
+
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
@@ -28,7 +30,7 @@ export default function ProductDetailScreen() {
   const tabs = ["Description", "Specifications"];
   const [activeTab, setActiveTab] = useState("Description");
 
-  const addToCart = useCartStore((state) => state.addToCart)
+  const addToCart = useCartStore((state) => state.addToCart);
   return (
     <ParallaxScrollView>
       <ThemedView style={styles.mainContainer}>
@@ -105,7 +107,20 @@ export default function ProductDetailScreen() {
                     ${product.price.toLocaleString()}
                   </ThemedText>
                 </View>
-                <ButtonContainer onPress={() => addToCart(product)} style={styles.addToCartButton}>
+                <ButtonContainer
+                  onPress={() => {
+                    addToCart(product);
+                    Toast.show({
+                      type: "success",
+                      text1: "Added to Cart",
+                      text2: `${product.name} was successfully added!`,
+                      position: "top",
+                      visibilityTime: 2500,
+                      topOffset: 60,
+                    });
+                  }}
+                  style={styles.addToCartButton}
+                >
                   <ThemedText style={styles.addToCartText}>
                     Add to Cart
                   </ThemedText>
